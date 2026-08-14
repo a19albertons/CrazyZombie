@@ -7,6 +7,9 @@ public class ProjectileMovement : MonoBehaviour
     [SerializeField]
     float speed = 20f;
 
+    [SerializeField]
+    AudioClip golpeEnemigo; // Componente de audio para reproducir el sonido del golpe al enemigo
+
     //Referencia ao RigidBody
     Rigidbody rb;
 
@@ -38,5 +41,16 @@ public class ProjectileMovement : MonoBehaviour
     {
         //Se destruye el projectil completo
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        Debug.Log("Entramos en un trigger con: " + collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Golpe al enemigo");
+            // Reproducir el sonido del golpe al enemigo
+            AudioSource.PlayClipAtPoint(golpeEnemigo, transform.position);
+        }
     }
 }
