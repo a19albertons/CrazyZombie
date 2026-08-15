@@ -22,10 +22,11 @@ public class EnemyDamage : MonoBehaviour
 
             if (hitCount >= HITS_TO_DIE)
             {
-                // Avisar ao spawner antes de morrer
+                // Avisar ao spawner antes de morrer  e incrementar contador
                 if (spawner != null)
                     spawner.SpawnEnemy();
 
+                GameManager.instance.IncrementarMuertos();
                 Destroy(gameObject);
             }
         }

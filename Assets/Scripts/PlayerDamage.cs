@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDamage : MonoBehaviour
 {
@@ -35,7 +36,11 @@ public class PlayerDamage : MonoBehaviour
 
         // Comprobamos se o xogador morreu
         if (currentHealth <= 0)
-            Debug.Log("Player Morto");
+        {
+            Debug.Log("Player Morto. Cargando escena final...");
+            SceneManager.LoadScene(1); // Cargamos a escena de Final a partir del codigo entero
+        }
+
     }
 
     // Actualiza o texto de vida na interface
