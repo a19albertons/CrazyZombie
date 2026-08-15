@@ -1,14 +1,18 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     float speed; // Velocidad del personaje
 
+    CharacterController controller;
+
     void Start()
     {
         // Restringir el movimiento del ratón dentro de la ventana del juego
         Cursor.lockState = CursorLockMode.Locked;
+        controller = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -20,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         moveInput *= Time.deltaTime; // Escalar el movimiento por el tiempo
 
         // Aplicar el movimiento al personaje en el plano XZ (suelo)
-        transform.Translate(moveInput.x, 0, moveInput.z);
+        controller.Move(moveInput);
 
         // Liberar el ratón si se presiona la tecla Escape
         if (Input.GetKeyDown(KeyCode.Escape))
