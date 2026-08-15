@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
     AudioClip BackgroundMusic; // Componente de audio para reproducir la música de fondo
     AudioSource audioSource;
 
-    AudioManager instance;
+    static AudioManager instance;
 
     /// <summary>
     /// Se ejecuta al iniciar el patron singleton, si no hay ninguna instancia de AudioManager, se crea una nueva instancia y se asigna a la variable instance.
@@ -37,6 +37,11 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject); // Evita que el AudioManager se destruya al cambiar de escena
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject); // Destruye cualquier instancia adicional del AudioManager
         }
 
     }
