@@ -5,6 +5,9 @@ on:
     schedule:
         - cron: "0 0 * * *"
     workflow_dispatch:
+    pull_request:
+        branches:
+            - master
 
 # Configuración de permisos explicitos para el flujo de trabajo
 permissions:
@@ -38,7 +41,7 @@ jobs:
 
             # Ejecuta el método estático de nuestro script de C# usando GameCI
             - name: Ejecutar comprobación en Unity
-              uses: game-ci/unity-builder@v6
+              uses: game-ci/unity-builder@v4
               with:
                   projectPath: .
                   # Indicamos a GameCI que ejecute tu script en lugar del Builder por defecto
@@ -73,6 +76,7 @@ jobs:
             # Crea una Pull Request si se han realizado cambios en el manifest.json
             - name: Crear Pull Request si hay cambios
               uses: peter-evans/create-pull-request@v8
+              if: github.event_name != 'pull_request'
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   commit-message: "chore(deps): actualizar dependencias de Unity (versiones compatibles)"
